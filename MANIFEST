@@ -1,0 +1,9 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Apache-Session-Ipc.t
+lib/Apache/Session/Ipc.pm
+lib/Apache/Session/Lock/Ipc.pm
+lib/Apache/Session/Store/Ipc.pm
+META.yml                                 Module meta-data (added by MakeMaker)
