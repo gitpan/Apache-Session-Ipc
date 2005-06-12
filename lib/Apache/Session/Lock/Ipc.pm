@@ -13,7 +13,7 @@ use strict;
 use IPC::Shareable qw(:lock);
 use Time::HiRes;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
     my $class = shift;
@@ -21,6 +21,10 @@ sub new {
 }
 
 sub acquire_read_lock {
+    # No read lock
+}
+
+sub acquire_write_lock {
     my $self    = shift;
     my $session = shift;
 
@@ -42,11 +46,11 @@ sub acquire_read_lock {
     return $self->{lock} = 0;
 }
 
-sub acquire_write_lock {
-    $_[0]->acquire_read_lock( $_[1] );
+sub release_read_lock {
+    # No read lock
 }
 
-sub release_read_lock {
+sub release_write_lock {
     my $self = shift;
 
     if ( $self->{lock} ) {
@@ -56,12 +60,8 @@ sub release_read_lock {
     $self->{lock} = 0;
 }
 
-sub release_write_lock {
-    $_[0]->release_read_lock( $_[1] );
-}
-
 sub release_all_locks {
-    $_[0]->release_read_lock( $_[1] );
+    $_[0]->release_write_lock( $_[1] );
 }
 
 sub DESTROY {
@@ -96,9 +96,8 @@ Apache::Session::Lock::Ipc - Provides mutual exclusion using IPC
 Apache::Session::Lock::Ipc fulfills the locking interface of 
 Apache::Session. Mutual exclusion is achieved through the use of shlock and
 shunlock functions of IPC::Shareable. Since this module does not support the
-notions of read and write locks, this module only supports exclusive locks.
-When you request a shared read lock, it is instead promoted to an exclusive
-write lock.
+notions of read and write locks, this module only supports write exclusive
+locks. When you request a shared read lock, nothing happens.
 
 =head1 CONFIGURATION
 

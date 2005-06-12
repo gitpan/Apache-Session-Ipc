@@ -20,7 +20,7 @@ use Apache::Session::Generate::MD5;
 use Apache::Session::Serialize::Storable;
 
 our @ISA = qw(Apache::Session);
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 sub populate {
     my $self = shift;

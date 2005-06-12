@@ -3,3 +3,5 @@ Revision history for Perl extension Apache::Session::Ipc.
 0.01  Tue Jun  7 12:59:09 2005
 	- Initial release
 
+0.02  Sun Jun 12 09:22:00 2005
+	- Read locks have been erased for performance
